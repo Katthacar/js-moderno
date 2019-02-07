@@ -48,7 +48,6 @@ export default class Interfaz {
       input: 'number',
       showCancelButton: true,
       inputValidator: (value) => {
-        console.log(Number(value));
         return (!value && 'Debe ingresar un valor para el presupuesto!')
           || ((isNaN(Number(value)) || Number(value) < 0) && 'El valor introducido es inválido');
       }
@@ -87,6 +86,7 @@ export default class Interfaz {
       this.presupuesto.restante -= this.gasto.valor;// Se resta valor del gasto del restante
       this.restante.textContent = this.presupuesto.restante;
       this.changeAlertRestante();
+      this.form.reset();
     } else {
       Swal.fire(
         'Operación Inválida!',
@@ -116,9 +116,7 @@ export default class Interfaz {
       <span class="badge">${objGasto.valor}</span>
     </li>
     `;
-    console.log(this.divGastos);
     this.divGastos.firstElementChild.appendChild(liGasto);
-    this.cleanInputs();
   }
 
   changeAlertRestante() {
@@ -126,11 +124,6 @@ export default class Interfaz {
       this.restante.parentElement.parentElement.classList.remove('alert-success');
       this.restante.parentElement.parentElement.classList.add('alert-warning');
     }
-  }
-
-  cleanInputs() {
-    this.txtGasto.value = '';
-    this.txtCantidad.value = '';
   }
 
 }
